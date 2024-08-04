@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Solves the lock boxes puzzle 
+Solves the lock boxes puzzle
 """
 
 
