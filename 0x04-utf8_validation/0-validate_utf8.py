@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-validate_utf8
+Combined UTF-8 validation module.
 """
 
 
@@ -25,14 +25,19 @@ def validUTF8(data):
     a valid UTF-8 encoding.
     Args: data (list): List of integers
     Returns: True if data is a valid UTF-8 encoding, else return False
-    Only need to handle 8 leading bits of each integer
     """
     n = 0
     for num in data:
+        if num < 0 or num > 0x10ffff:
+            return False
         if n == 0:
             n = _getnum(num)
+            if n == 0:
+                continue
+            if n == 1 or n > 4:
+                return False
         else:
             if _getnum(num) != 1:
                 return False
-            n -= 1
+        n -= 1
     return n == 0
