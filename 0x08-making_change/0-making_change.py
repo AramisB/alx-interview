@@ -14,18 +14,16 @@ def makeChange(coins, total):
     Returns: fewest number of coins needed
     If total is 0 or less, return 0
     If total cannot be met by any number of coins you have, return -1
+    Using greedy algorithm
     """
     if total <= 0:
         return 0
-    if total in coins:
-        return 1
     coins.sort(reverse=True)
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0
-
+    count = 0
     for coin in coins:
-        for x in range(coin, total + 1):
-            if dp[x - coin] != float('inf'):
-                dp[x] = min(dp[x], dp[x - coin] + 1)
-
-    return dp[total] if dp[total] != float('inf') else -1
+        while total >= coin:
+            total -= coin
+            count += 1
+    if total == 0:
+        return count
+    return -1
